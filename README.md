@@ -1,4 +1,4 @@
-# Conference_1 results and model code (public copy)
+# Conference results and model code (public copy)
 
 Per-seed result files, model definitions, and experiment/training-launch
 scripts backing an ICASSP 2027 submission on three-class classification of
