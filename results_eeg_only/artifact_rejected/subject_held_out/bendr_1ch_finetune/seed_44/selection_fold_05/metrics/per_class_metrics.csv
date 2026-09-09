@@ -1,0 +1,4 @@
+class_idx,class_name,support,precision,recall,specificity,f1,roc_auc_ovr,average_precision
+0,NREM_to_MA,835,0.5060606060606061,1.0,0.0,0.6720321931589537,,
+1,NREM_to_Awake,75,0.0,0.0,1.0,0.0,,
+2,Stable_NREM,740,0.0,0.0,1.0,0.0,,

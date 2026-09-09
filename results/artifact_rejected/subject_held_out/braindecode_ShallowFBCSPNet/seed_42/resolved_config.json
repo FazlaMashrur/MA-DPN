@@ -1,0 +1,120 @@
+{
+  "_arm": "shallow_fbcsp",
+  "_config_hash": "e412b2d66eda0cf1738e2cf100d7b7a9c4eef3cb4a209fcedfe977a300c87d6c",
+  "_paths": {
+    "config_path": "<REPO_ROOT>/configs/base.json",
+    "data_anchor": "<PROJECT_ROOT>",
+    "override_path": "<REPO_ROOT>/experiments/_sweep_overrides/protocol1_headline/shallow_fbcsp.json",
+    "package_root": "<REPO_ROOT>"
+  },
+  "_recipe_provenance": {
+    "SUPERSEDED_training_values": "As of D6.11, training.epochs (150 -> 500) and training.patience (25 -> 50) NO LONGER match eegnet_best.py. They were changed by explicit user instruction to match eegnet_classifier_11.py's run_multiscale_experiment. training.monitor was also changed to val_weighted_f1 by D6.11, then reverted back to val_macro_f1 by D6.14 ahead of running Protocol 1 for the real paper matrix, so monitor now matches eegnet_best.py and the headline reporting metric (evaluation.headline_metric) again; epochs/patience remain at 500/50. Consequence: the Stage 3a reproduction gate in reports/STAGE3_REPRODUCTION.md was measured under the OLD epoch/patience values (150/25) and its 76.04 +/- 4.35 weighted-F1 result is no longer reproducible from this config unchanged, even though monitor now matches again. lr, weight_decay, batch_size, scheduler shape and class weighting still match eegnet_best.py.",
+    "corrections_applied": [
+      "validation_strategy set to subject_holdout, fixing the sample-level inner split defect",
+      "validation subjects are now drawn at random under the fold seed rather than alphabetically",
+      "split_strategy set to stratified_group so outer test folds hold out whole subjects"
+    ],
+    "pinned_from": "eegnet_best.py, the standalone script that produced the only externally validated result in this project (subject-wise 10-fold, macro-F1 77.31 percent, accuracy 77.64 percent)",
+    "science_bearing_values_awaiting_confirmation": [
+      "feature_extraction.type",
+      "training.learning_rate as a single value shared across arms of very different size"
+    ],
+    "score_cleaning_confirmed": "Confirmed by explicit user instruction after the legacy_oct2025 reproduction investigation. strict_subset (ported from load_mat_for_dl.py::clean_by_score_strict, the function eegnet_classifier_11.py's loader actually called with apply_cleaning=True) plus include_endpoint=true recovered the historical 80.89/81.00 percent figures to within 1.3-1.4 points on the same architecture, same leaky split, on data close to the original vintage. Score cleaning alone accounted for +11.96 of that recovery; window inclusion for +0.12; both are now applied to every data_version, including filtered_only and artifact_rejected, not just legacy_oct2025. Consequence, spot-checked on 8 filtered_only subjects: NREM_to_MA retention drops to ~46 percent, NREM_to_Awake to ~51 percent, Stable_NREM roughly unchanged at ~91 percent. Every existing result on disk computed before this change used the old (uncleaned, 6400-sample) recipe and has a different config_hash; it is not comparable to anything computed after. training.epochs/patience were NOT changed alongside this -- see D6.7.",
+    "subject_id_source_confirmed": "dataset.subject_id_source: filename confirmed by explicit PI answer (D6.13, closing F7). Same-number different-prefix subject IDs (arch_418, aud_418, nor_418_arch, etc.) are independent animals; the shared numeric substring is coincidental per-cohort/per-treatment-arm numbering, not repeated sessions on one animal. Filename-level grouping was valid all along.",
+    "why": "Stage 3 must reproduce that number. Pinning either shipped JSON config instead would make the reproduction impossible by construction, because neither uses the learning rate, schedule, epoch budget, or validation protocol that produced it."
+  },
+  "cross_validation": {
+    "n_splits": 10,
+    "random_state": 42,
+    "shuffle": true,
+    "split_strategy": "stratified_group",
+    "validation_size": 0.1,
+    "validation_strategy": "subject_holdout"
+  },
+  "dataset": {
+    "_legacy_oct2025_note": "71 per-subject extracted_signals.mat files dated 20 Oct 2025, same schema as filtered_only/artifact_rejected but never through the Stage-2 matched-pair audit (there is no second version to match it against; it was structurally spot-checked instead: schema fields, 3 class slots, 46080 samples/channel, confirmed on 8 of 71 files). This is the folder eegnet_classifier_7 through 12.py read via MAT_FOLDER, confirmed by grep to be the source behind processed_mice_7ch_data.npz, the cache behind the eegnet_classifier_11 ablation's 80.89 percent / 81.00 percent figures. All 10 locked test subjects and all 59 development pool subjects are present, so Protocol 1 and Protocol 3 both run on it under the existing lock. Which MATLAB script version produced it is unconfirmed; it predates processNeuralData_v2.m's known runs, so it likely used the predecessor script. Absolute path in data_version_folders overrides dataset_root for this one entry (pathlib: root / absolute_path == absolute_path).",
+    "apply_score_cleaning": true,
+    "class_names": [
+      "NREM_to_MA",
+      "NREM_to_Awake",
+      "Stable_NREM"
+    ],
+    "data_version": "artifact_rejected",
+    "data_version_folders": {
+      "artifact_rejected": "Data_correctly_filtered_artifact_rejected",
+      "filtered_only": "Data_correctly_filtered",
+      "legacy_oct2025": "<PROJECT_ROOT>/data"
+    },
+    "dataset_root": "Conference_1 ",
+    "end_sec": 20.0,
+    "include_endpoint": false,
+    "score_cleaning": {
+      "algorithm": "strict_subset",
+      "baseline_end_sec": 0.0,
+      "baseline_start_sec": -5.0,
+      "label_end_sec": 15.0,
+      "label_start_sec": 0.0
+    },
+    "signal_keys": [
+      "eeg"
+    ],
+    "start_sec": -5.0,
+    "subject_id_source": "filename"
+  },
+  "evaluation": {
+    "headline_metric": "macro_f1",
+    "summary_metrics": [
+      "accuracy",
+      "balanced_accuracy",
+      "precision_macro",
+      "recall_macro",
+      "specificity_macro",
+      "macro_f1",
+      "weighted_f1",
+      "roc_auc_ovr_macro",
+      "roc_auc_ovr_weighted",
+      "average_precision_macro",
+      "average_precision_weighted"
+    ]
+  },
+  "experiment_name": "conference1_base",
+  "feature_extraction": {
+    "sample_rate": 256.0,
+    "type": "bandpower_7ch"
+  },
+  "model": {
+    "arch": "ShallowFBCSPNet",
+    "name": "braindecode",
+    "sfreq": 256.0
+  },
+  "normalization": {
+    "eps": 1e-06,
+    "strategy": "per_sample_zscore"
+  },
+  "outputs": {
+    "results_root": "results"
+  },
+  "training": {
+    "batch_size": 32,
+    "device": "auto",
+    "epochs": 500,
+    "learning_rate": 0.0001,
+    "lr_scheduler": "one_cycle_absorbed",
+    "max_grad_norm": 1.0,
+    "monitor": "val_macro_f1",
+    "monitor_mode": "max",
+    "num_workers": 0,
+    "one_cycle_absorbed": {
+      "a1": 0.6,
+      "a2": 1.0,
+      "pivot": 0.3
+    },
+    "patience": 50,
+    "seed": 42,
+    "seeds": [
+      42
+    ],
+    "use_class_weights": true,
+    "weight_decay": 0.01
+  }
+}

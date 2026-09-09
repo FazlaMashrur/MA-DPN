@@ -1,0 +1,80 @@
+[
+  {
+    "n_test": 0,
+    "n_test_subjects": 0,
+    "n_train": 10314,
+    "n_train_subjects": 47,
+    "n_val": 1791,
+    "n_val_subjects": 12,
+    "partition": "selection_fold_01",
+    "subject_disjoint_by_design": true,
+    "train_test_overlap": [],
+    "train_val_overlap": [],
+    "val_test_overlap": []
+  },
+  {
+    "n_test": 0,
+    "n_test_subjects": 0,
+    "n_train": 9248,
+    "n_train_subjects": 47,
+    "n_val": 2857,
+    "n_val_subjects": 12,
+    "partition": "selection_fold_02",
+    "subject_disjoint_by_design": true,
+    "train_test_overlap": [],
+    "train_val_overlap": [],
+    "val_test_overlap": []
+  },
+  {
+    "n_test": 0,
+    "n_test_subjects": 0,
+    "n_train": 9219,
+    "n_train_subjects": 47,
+    "n_val": 2886,
+    "n_val_subjects": 12,
+    "partition": "selection_fold_03",
+    "subject_disjoint_by_design": true,
+    "train_test_overlap": [],
+    "train_val_overlap": [],
+    "val_test_overlap": []
+  },
+  {
+    "n_test": 0,
+    "n_test_subjects": 0,
+    "n_train": 9184,
+    "n_train_subjects": 47,
+    "n_val": 2921,
+    "n_val_subjects": 12,
+    "partition": "selection_fold_04",
+    "subject_disjoint_by_design": true,
+    "train_test_overlap": [],
+    "train_val_overlap": [],
+    "val_test_overlap": []
+  },
+  {
+    "n_test": 0,
+    "n_test_subjects": 0,
+    "n_train": 10455,
+    "n_train_subjects": 48,
+    "n_val": 1650,
+    "n_val_subjects": 11,
+    "partition": "selection_fold_05",
+    "subject_disjoint_by_design": true,
+    "train_test_overlap": [],
+    "train_val_overlap": [],
+    "val_test_overlap": []
+  },
+  {
+    "n_test": 2139,
+    "n_test_subjects": 10,
+    "n_train": 11382,
+    "n_train_subjects": 53,
+    "n_val": 723,
+    "n_val_subjects": 6,
+    "partition": "final_locked_test",
+    "subject_disjoint_by_design": true,
+    "train_test_overlap": [],
+    "train_val_overlap": [],
+    "val_test_overlap": []
+  }
+]
