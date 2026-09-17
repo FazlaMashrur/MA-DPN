@@ -26,7 +26,6 @@ models/
                                multi-scale convolutions and hierarchical
                                attention.
   eegnet.py, baselines.py,
-  eegnextformer.py,
   braindecode_arm.py          in-house and reference architectures.
   registry.py                 single entry point (`build_model`) routing
                                every arm in the experiment matrix, including
