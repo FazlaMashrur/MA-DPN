@@ -31,17 +31,6 @@ models/
                                every arm in the experiment matrix, including
                                calls into `foundation.build_foundation_model`
                                for the pretrained foundation-model arms.
-
-experiments/
-  run_protocol.py, run_cv.py,
-  run_sweep.py                training/evaluation entry points.
-  protocols.py                protocol definitions (subject-held-out, etc.).
-  arm_*.json, repro_*.json    per-arm experiment configs.
-  _sweep_overrides/           per-arm config overrides and sweep manifests.
-  slurm/                      HPC job-submission scripts for the above
-                               (paths sanitized to <REPO_ROOT>/<REPO_PARENT>;
-                               these encode the exact per-arm interpreter and
-                               launch commands used, not just the configs).
 ```
 
 All results shown are evaluated once on a fixed, held-out set of test
